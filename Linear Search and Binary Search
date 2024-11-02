@@ -1,0 +1,49 @@
+#include<stdio.h>
+
+void linearS (int arr[], int n,int target){
+    int f =0;
+    int ind;
+    for(int i=0;i<n;i++){
+        if(arr[i]==target){
+            f=1;
+            ind = i+1;
+            break;
+        }
+    }
+    if(f==1)
+        printf("Element found at %d using Linear Search \n",ind);
+    else
+        printf("Element not found\n");
+}
+void binaryS (int arr[], int n,int target){
+    int left=0, right =n-1, found=0;
+    while(left<=right){
+        int mid = (right-left)/2 + left;
+        if (arr[mid]==target){
+            printf("Element found at %d using Binary Search\n",mid+1);
+            found=1;
+            break;
+        }
+        else if(arr[mid]<target)
+            left = mid+1;
+        else
+            right = mid-1;
+        }
+        if(!found){
+            printf("The element does not exist in the given array \n");
+        }
+        }
+    void sort (int arr[], int n) {
+        int temp;
+        for(int i=0;i<n-1;i++){
+            for(int j=0;j<n-i-1;j++){
+                if(arr[j]>arr[j+1])
+                {
+                    temp =arr[j];
+                    arr[j]=arr[j+1];
+                    arr[j+1]=temp;
+                }
+        }        
+    }
+    }    
+
