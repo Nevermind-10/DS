@@ -1,49 +1,85 @@
-#include<stdio.h>
+#include <stdio.h>
 
-void linearS (int arr[], int n,int target){
-    int f =0;
-    int ind;
-    for(int i=0;i<n;i++){
-        if(arr[i]==target){
-            f=1;
-            ind = i+1;
+void linearSearch(int arr[], int n, int target) {
+    int found = 0;
+    for (int i = 0; i < n; i++) {
+        if (arr[i] == target) {
+            printf("Element found at index %d using Linear Search.\n", i);
+            found = 1;
             break;
         }
     }
-    if(f==1)
-        printf("Element found at %d using Linear Search \n",ind);
-    else
-        printf("Element not found\n");
+    if (!found) {
+        printf("Element not found using Linear Search.\n");
+    }
 }
-void binaryS (int arr[], int n,int target){
-    int left=0, right =n-1, found=0;
-    while(left<=right){
-        int mid = (right-left)/2 + left;
-        if (arr[mid]==target){
-            printf("Element found at %d using Binary Search\n",mid+1);
-            found=1;
+
+void binarySearch(int arr[], int n, int target) {
+    int left = 0, right = n - 1, found = 0;
+    while (left <= right) {
+        int mid = left + (right - left) / 2;
+        if (arr[mid] == target) {
+            printf("Element found at index %d using Binary Search.\n", mid);
+            found = 1;
             break;
+        } else if (arr[mid] < target) {
+            left = mid + 1;
+        } else {
+            right = mid - 1;
         }
-        else if(arr[mid]<target)
-            left = mid+1;
-        else
-            right = mid-1;
-        }
-        if(!found){
-            printf("The element does not exist in the given array \n");
-        }
-        }
-    void sort (int arr[], int n) {
-        int temp;
-        for(int i=0;i<n-1;i++){
-            for(int j=0;j<n-i-1;j++){
-                if(arr[j]>arr[j+1])
-                {
-                    temp =arr[j];
-                    arr[j]=arr[j+1];
-                    arr[j+1]=temp;
-                }
-        }        
     }
-    }    
+    if (!found) {
+        printf("Element not found using Binary Search.\n");
+    }
+}
+
+void sortArray(int arr[], int n) {
+    for (int i = 0; i < n - 1; i++) {
+        for (int j = i + 1; j < n; j++) {
+            if (arr[i] > arr[j]) {
+                int temp = arr[i];
+                arr[i] = arr[j];
+                arr[j] = temp;
+            }
+        }
+    }
+}
+
+int main() {
+    int arr[] = {34, 7, 23, 32, 5, 62};
+    int n = sizeof(arr) / sizeof(arr[0]);
+    int choice, target;
+
+    do {
+        printf("\nMenu:\n");
+        printf("1. Linear Search\n");
+        printf("2. Binary Search\n");
+        printf("3. Exit\n");
+        printf("Enter your choice: ");
+        scanf("%d", &choice);
+
+        if (choice == 1 || choice == 2) {
+            printf("Enter the element to search for: ");
+            scanf("%d", &target);
+        }
+
+        switch (choice) {
+            case 1:
+                linearSearch(arr, n, target);
+                break;
+            case 2:
+                sortArray(arr, n);  // Sort the array for Binary Search
+                binarySearch(arr, n, target);
+                break;
+            case 3:
+                printf("Exiting program.\n");
+                break;
+            default:
+                printf("Invalid choice! Please enter 1, 2, or 3.\n");
+        }
+    } while (choice != 3);
+
+    return 0;
+}
+
 
