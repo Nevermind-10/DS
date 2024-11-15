@@ -67,7 +67,6 @@ void DeleteAny(int key){
            ptr->link = temp->link;
            free(temp);
            printf("Node with %d value deleted",key);
-p;
         }
    }
 }
