@@ -4,7 +4,7 @@
 typedef struct Node{
     int data;
     struct Node* link;
-}Node;
+} Node;
 
 Node* createNode(int data){
     Node* new = malloc(sizeof(Node));
@@ -67,6 +67,52 @@ void DeleteF(){
     printf("Element deleted from front \n");
     }
 }
+void DeleteE(){
+    if(head == NULL)
+        printf("The list is empty \n");
+    else if(head->link == NULL){
+        Node* temp = head;
+        head = NULL;
+        free(temp);
+    }
+    else
+    {
+        Node* ptr = head;
+        while(ptr->link->link!=NULL){
+            ptr = ptr->link;
+        }
+        Node* temp = ptr->link;
+        ptr->link = NULL;
+        free(temp);
+    }
+}
+void DeleteAny(int key){
+   if(head == NULL){
+       printf("List is empty \n");
+   }
+   else if( head ->data == key){
+      Node* temp = head;
+      head = head -> link;
+      free(temp);
+   }
+   else {
+       Node* ptr = head;
+       Node* temp = head->link;
+       while(temp!=NULL && temp->data != key){
+           ptr = temp;
+           temp = temp->link;
+       }
+       if(temp==NULL){
+           printf("Search key cannot be found\n");
+       }
+       else{
+           ptr->link = temp->link;
+           free(temp);
+           printf("Node with %d value deleted",key);
+        }
+   }
+}
+
 void Display(){
     if(head==NULL)
         printf("List is empty \n");
@@ -83,7 +129,7 @@ int main() {
 int choice, data,key;
     
     while (1) {
-        printf("\n 1. Insert at front \n 2. Insert at end \n 3. Insert at specific position \n 4. Delete from front \n 5. Display\n 6. Exit\n");
+        printf("\n 1. Insert at front \n 2. Insert at end \n 3. Insert at specific position \n 4. Delete from front \n 5. Delete from end \n 6. Delete at any specific position \n 7. Display\n 8. Exit\n");
         printf("Enter your choice: ");
         scanf("%d", &choice);
         
@@ -111,9 +157,19 @@ int choice, data,key;
                 Display();
                 break;
             case 5:
+                DeleteE();
+                printf("Updated list: \n");
                 Display();
                 break;
             case 6:
+                printf("Enter the element to be deleted \n");
+                scanf("%d",&key);
+                DeleteAny(key);
+                break;
+            case 7:
+                Display();
+                break;
+            case 8:
                 printf("Exiting...\n");
                 exit(0);
             default:
