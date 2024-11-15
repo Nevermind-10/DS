@@ -71,7 +71,6 @@ void DeleteAny(int key){
         }
    }
 }
-
 void Display(){
     if(head==NULL)
         printf("List is empty \n");
