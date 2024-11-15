@@ -1,0 +1,118 @@
+//Merge sort:
+#include<stdio.h>
+void MergeSort(int A[],int low, int high){
+    if(low<high){
+        int mid = (low+high)/2;
+        MergeSort(A,low,mid);
+        MergeSort(A,mid+1,high);
+        Merge(A,low,mid,high);
+    }
+}
+void Merge(int A[],int low, int mid, int high){
+    int B[10];
+    int x=low;
+    int y = mid+1;
+    int i=low;
+    int j;
+    while(x<=mid && y<= high){
+        if(A[x]<A[y])
+            {
+                B[i]=A[x];
+                x++;
+            }
+        else 
+        {
+            B[i]=A[y];
+            y++;
+        }
+        i++;
+    }
+    if(x<=mid){
+        for(j=x;j<=mid;j++){
+            B[i]=A[j];
+            i++;
+        }
+    }
+    else{
+        for(j=y;j<=high;j++){
+            B[i]=A[j];
+            i++;
+        }
+    }
+    for(i=low;i<=high;i++){
+        A[i]=B[i];
+    }
+}
+void main(){
+    int A[10];
+    int n;
+    printf("Enter the no. of elements in the array \n");
+    scanf("%d",&n);
+    printf("Enter the elements of the array \n");
+    for(int i=0;i<n;i++){
+        scanf("%d",&A[i]);
+    }
+    printf("The array before sorting is: \n");
+    for(int i=0;i<n;i++){
+        printf("%d \n",A[i]);
+    }
+    MergeSort(A,0,n-1);
+    printf("After sorting: \n");
+    for(int i=0;i<n;i++){
+        printf("%d \t",A[i]);
+    }
+}
+
+//Quick Sort
+#include<stdio.h>
+void QuickSort(int arr[], int low, int high);
+int partition(int arr[], int low, int high);
+
+void main(){
+	int n;
+	int arr[20];
+	printf("Enter the number of elements in the array \n");
+	scanf("%d",&n);
+	printf("Enter the elements in the array \n");
+	for(int i=0;i<n;i++){
+		scanf("%d",&arr[i]);
+		}
+	printf("Array before sorting: \n");
+	for(int i=0;i<n; i++){
+		printf("%d \n",arr[i]);
+		}
+	QuickSort(arr, 0, n-1);
+	printf("Array after sorting: \n");
+	for(int i=0;i<n;i++){
+		printf("%d \n",arr[i]);
+		}
+	}
+void QuickSort(int arr[], int low, int high){
+	if(low<high){
+		int partitionIndex = partition(arr, low, high);
+		QuickSort(arr, low, partitionIndex-1);
+		QuickSort(arr, partitionIndex+1, high);
+		}
+}
+int partition(int arr[], int low, int high){
+	int pivot = arr[high];
+	int i = low -1;
+	for(int j=low; j<high; j++){
+		if(arr[j]<pivot)
+		{
+			i++;
+			int temp = arr[i];							
+			arr[i] = arr[j];
+			arr[j] = temp;
+			}
+	}
+		int temp = arr[i+1];
+		arr[i+1]=arr[high];
+		arr[high]=temp;
+		
+	return i+1;
+}
+		
+		
+		
+		
