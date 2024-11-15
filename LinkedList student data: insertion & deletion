@@ -1,0 +1,109 @@
+#include<stdio.h>
+#include<stdlib.h>
+
+typedef struct StudentData{
+    long reg_no;
+    char name[40];
+    char branch[40];
+    int semester;
+    char phoneno[40];
+} STD;
+
+typedef struct Node{
+    STD data;
+    struct Node* link;
+} Node;
+Node* createNode(STD data){
+    Node* new = (Node*)malloc(sizeof(Node));
+    new->data=data;
+    new->link=NULL;
+    return new;
+}
+Node* head = NULL;
+void insertion(STD data)
+{
+    Node* new = createNode(data);
+    if (head == NULL){
+        head =new;
+    }
+    else{
+        new->link=head;
+        head=new;
+    }
+}
+void delete(){
+    if(head==NULL){
+        printf("List is empty \n");
+    }
+    else if(head->link==NULL){
+        printf("Node deleted \n");
+        Node* temp = head;
+        head = NULL;
+        free(temp);
+    }
+    else{
+        printf("Node deleted \n");
+        Node* ptr = head;
+        while(ptr->link->link!=NULL){
+            ptr = ptr->link;
+        }
+            Node* temp = ptr->link;
+            ptr->link =NULL;
+            free(temp);
+    }
+}
+int DisplayCount(){
+    int count =0;
+    if(head==NULL)printf("The list is empty \n");
+    else{
+        Node* ptr = head;
+        printf("Student List: \n");
+        while(ptr!=NULL){
+            printf("Register No: %ld \n",ptr->data.reg_no);
+            printf("Name: %s",ptr->data.name);
+            printf("Branch: %s",ptr->data.branch);
+            printf("Semester: %d \n",ptr->data.semester);
+            printf("Phone Number: %s",ptr->data.phoneno);
+            printf("-------------------------------------------------\n");
+            ptr=ptr->link;
+            count++;
+        }
+    }
+    printf("Number of nodes in the list are: %d \n",count);
+    printf("\n");
+    return count;
+}
+void main(){
+    int choice;
+    STD StD;
+    while(1){
+    printf("Enter your choice \n");
+    printf("1.Insert student data \n2.Display student data and number of nodes \n3.Delete from end \n4.Exit \n");
+    scanf("%d",&choice);
+    switch(choice){
+        case 1:
+        printf("Enter the register number of the student: ");
+        scanf("%ld",&StD.reg_no);
+        while(getchar()!='\n');
+        printf("Enter the name of the student: ");
+        fgets(StD.name,sizeof(StD.name),stdin);
+        printf("Enter the Branch of the student: ");
+        fgets(StD.branch,sizeof(StD.branch),stdin);
+        printf("Enter the Semester of study: ");
+        scanf("%d",&StD.semester);
+        while(getchar()!='\n');
+        printf("Enter the phone number of the student: ");
+        fgets(StD.phoneno,sizeof(StD.phoneno),stdin);
+        insertion(StD);
+        break;
+        case 2:
+        DisplayCount();
+        break;
+        case 3:
+        delete();
+        break;
+        case 4:
+        exit(0);
+    }
+    }
+}
