@@ -1,1 +1,73 @@
+#include<stdio.h>
+#include<stdlib.h>
+typedef struct TNode{
+    int data;
+    struct TNode* lc;
+    struct TNode* rc;
+} TNode;
 
+void BuildTree(TNode* ptr){
+    int ch;
+    printf("Enter the data for this node: ");
+    scanf("%d",&ptr->data);
+    printf("Create left child for %d? (1 / 0): ",ptr->data);
+    scanf("%d",&ch);
+    if(ch==1){
+        ptr->lc=(TNode*)malloc(sizeof(TNode));
+        if(!ptr->lc){
+            printf("Memory allocation failed \n");
+            exit(1);
+        }
+        BuildTree(ptr->lc);
+    }
+    printf("Create right child for %d? (1 / 0): ");
+    scanf("%d",&ch);
+    if(ch==1){
+        ptr->rc=(TNode*)malloc(sizeof(TNode));
+        if(!ptr->rc){
+            printf("Memory allocation failed \n");
+            exit(1);
+        }
+        BuildTree(ptr->rc);
+    }
+}
+void Preorder(TNode* root){
+    if(root!=NULL){
+        printf("%d \n",root->data);
+        Preorder(root->lc);
+        Preorder(root->rc);
+    }
+}
+void Inorder(TNode* root){
+    if(root!=NULL){
+    Inorder(root->lc);
+    printf("%d \n",root->data);
+    Inorder(root->rc);
+    }
+}
+void Postorder(TNode* root){
+    if(root!=NULL){
+        Postorder(root->lc);
+        Postorder(root->rc);
+        printf("%d \n",root->data);
+    }
+}
+void main(){
+    TNode* root = (TNode*)malloc(sizeof(TNode));
+    if(!root){
+        printf("Memory allocation failed \n");
+        exit(1);
+    }
+    printf("Building root....\n");
+    BuildTree(root);
+    printf("Preorder: ");
+    Preorder(root);
+    printf("\n");
+    printf("Inorder: ");
+    Inorder(root);
+    printf("\n");
+     printf("Postorder: ");
+    Postorder(root);
+    printf("\n");
+    
+}
