@@ -1,0 +1,261 @@
+
+#include<stdio.h>
+#include<stdlib.h>
+
+typedef struct Node{
+    int data;
+    struct Node* link;
+} Node;
+
+Node* createNode(int data){
+    Node* new = malloc(sizeof(Node));
+    new -> data = data;
+    new-> link = NULL;
+    return new;
+}
+Node* head = NULL;
+Node* head2 =NULL;
+void InsertF(int data){
+    if(head==NULL){
+        Node* new =createNode(data);
+        head = new;
+    }
+    else {
+        Node* new = createNode(data);
+        new->link = head;
+        head = new;
+    }
+}
+void InsertAny(int key, int data){
+    if(head==NULL)
+        printf("Search failed. Specified position does not exist \n");
+    else
+    {
+        Node* ptr = head;
+        while(ptr->link!=NULL && ptr->data!=key){
+            ptr=ptr->link;
+        }
+        if(ptr->data!=key)
+            printf("Search failed. Specified position does not exist here \n");
+        else 
+        {
+            Node* new =createNode(data);
+            new->link = ptr->link;
+            ptr->link = new;
+        }
+    }
+}
+void DeleteAny(int key){
+   if(head == NULL){
+       printf("List is empty \n");
+   }
+   else if( head ->data == key){
+      Node* temp = head;
+      head = head -> link;
+      free(temp);
+   }
+   else {
+       Node* ptr = head;
+       Node* temp = head->link;
+       while(temp!=NULL && temp->data != key){
+           ptr = temp;
+           temp = temp->link;
+       }
+       if(temp==NULL){
+           printf("Search key cannot be found\n");
+       }
+       else{
+           ptr->link = temp->link;
+           free(temp);
+           printf("Node with %d value deleted",key);
+        }
+   }
+}
+
+void Display(){
+    if(head==NULL)
+        printf("List is empty \n");
+    else 
+    {
+        Node* ptr = head;
+        while(ptr!=NULL){
+            printf("%d \n",ptr->data);
+            ptr=ptr->link;
+        }
+    }
+}
+//SECOND LIST
+void InsertF2(int data){
+    if(head2==NULL){
+        Node* new =createNode(data);
+        head2 = new;
+    }
+    else {
+        Node* new = createNode(data);
+        new->link = head2;
+        head2 = new;
+    }
+}
+void InsertAny2(int key, int data){
+    if(head2==NULL)
+        printf("Search failed. Specified position does not exist \n");
+    else
+    {
+        Node* ptr = head2;
+        while(ptr->link!=NULL && ptr->data!=key){
+            ptr=ptr->link;
+        }
+        if(ptr->data!=key)
+            printf("Search failed. Specified position does not exist here \n");
+        else 
+        {
+            Node* new =createNode(data);
+            new->link = ptr->link;
+            ptr->link = new;
+        }
+    }
+}
+void DeleteAny2(int key){
+   if(head2 == NULL){
+       printf("List is empty \n");
+   }
+   else if( head2 ->data == key){
+      Node* temp = head2;
+      head2 = head2 -> link;
+      free(temp);
+   }
+   else {
+       Node* ptr = head2;
+       Node* temp = head2->link;
+       while(temp!=NULL && temp->data != key){
+           ptr = temp;
+           temp = temp->link;
+       }
+       if(temp==NULL){
+           printf("Search key cannot be found\n");
+       }
+       else{
+           ptr->link = temp->link;
+           free(temp);
+           printf("Node with %d value deleted",key);
+        }
+   }
+}
+
+void Display2(){
+    if(head2==NULL)
+        printf("List is empty \n");
+    else 
+    {
+        Node* ptr = head2;
+        while(ptr!=NULL){
+            printf("%d \n",ptr->data);
+            ptr=ptr->link;
+        }
+    }
+}
+void Merge() {
+    if (head == NULL) {
+        head = head2;
+        return;
+    }
+    
+    if (head2 == NULL) {
+        return;
+    }
+    
+    Node* ptr =head;
+    while(ptr->link!=NULL){
+        ptr = ptr->link;
+        }
+    ptr->link = head2;
+    
+    head2 = NULL;
+}
+
+int main() {
+int choice1, choice, data,key;
+    
+    while (1) {
+        printf("Main Menu \nChoose: \n1. Create Linkedlist 1 \n2. Create Linked list 2 \n3. Merge the two lists \n4. Exit \n");
+        scanf("%d",&choice1);
+        switch(choice1){
+        case 1:
+          while(1){
+        printf("\n 1. Insert at front \n 2. Insert at specific position \n 3. Delete at any specific position \n 4. Display\n 5. Return to main menu\n");
+        printf("Enter your choice: ");
+        scanf("%d", &choice);
+        
+        switch (choice) {
+            case 1:
+                printf("Enter the element to insert at front: ");
+                scanf("%d", &data);
+                InsertF(data);
+                break;
+            case 2: 
+                 printf("Enter the element to be inserted \n");
+                scanf("%d",&data);
+                printf("Enter the position to be inserted \n");
+                scanf("%d",&key);
+                InsertAny(key,data);
+                break;
+            case 3:
+                  printf("Enter the element to be deleted \n");
+                scanf("%d",&key);
+                DeleteAny(key);
+                break;
+            case 4: 
+                Display();
+                break;
+            case 5:
+                break;
+            default:
+                printf("Invalid choice!\n");
+        }
+        if(choice == 5) break;
+    }
+    break;
+        case 2:
+        while(1){
+        printf("\n 1. Insert at the front \n 2. Insert at a specific position \n 3. Delete at any specific position \n 4. Display list 2\n 5. Return to main menu\n");
+        printf("Enter your choice: ");
+        scanf("%d", &choice);
+        switch (choice) {
+            case 1:
+                printf("Enter the element to insert at front: ");
+                scanf("%d", &data);
+                InsertF2(data);
+                break;
+            case 2: 
+                 printf("Enter the element to be inserted \n");
+                scanf("%d",&data);
+                printf("Enter the position to be inserted \n");
+                scanf("%d",&key);
+                InsertAny2(key,data);
+                break;
+            case 3:
+                  printf("Enter the element to be deleted \n");
+                scanf("%d",&key);
+                DeleteAny2(key);
+                break;
+            case 4: 
+                Display2();
+                break;
+            case 5:
+                break;
+            default:
+                printf("Invalid choice!\n");
+            }
+            if(choice == 5) break;
+        }
+        break;
+        case 3:
+        Merge();
+        Display();
+        break;
+        case 4:
+        exit(0);
+}
+}
+    return 0;
+}
