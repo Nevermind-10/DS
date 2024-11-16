@@ -16,10 +16,6 @@ int hashF(int key){
 void insert(int key){
     int index = hashF(key);
     Node* new = malloc(sizeof(Node));
-    if(!new){
-      printf("Memory allocation failure \n");
-      return;
-    }
     new->key = key;
     new->link= HashT[index];
     HashT[index]=new;
@@ -37,13 +33,13 @@ Node* search(int key){
 
 void display(){
     for(int i=0;i<TABLE_SIZE;i++){
-        printf("Index %d", i);
+        printf("Index %d: ",i);
         Node* temp = HashT[i];
         while(temp!=NULL){
-            printf("%d -->",temp->key);
+            printf("%d --",temp->key);
             temp=temp->link;
         }
-        printf("NULL\n");
+        printf("-->NULL\n");
     }
 }
 int main() {
