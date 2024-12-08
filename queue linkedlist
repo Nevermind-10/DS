@@ -1,0 +1,86 @@
+#include<stdio.h>
+#include<stdlib.h>
+typedef struct N{
+    int data;
+    struct N* link;
+} Node;
+
+Node* createNode(int data){
+    Node* newNode = malloc(sizeof(Node));
+    newNode->link = NULL;
+    newNode->data = data;
+    return newNode;
+}
+Node* head = NULL;
+
+void insertF(int data){
+    Node* newNode = createNode(data);
+    if(head==NULL){
+        head = newNode;
+        }
+    else{
+        newNode->link = head;
+        head = newNode;
+    }
+    }
+    
+void deletionR(){
+    Node* temp = head;
+    Node* ptr = NULL;
+    if(head==NULL){
+        printf("The list is empty\n");
+    }
+    else if (temp->link == NULL){
+        printf("Element %d deleted \n",temp->data);
+        free(temp);
+        head = NULL;
+    }
+    else{
+        while(temp->link!=NULL){
+        ptr = temp;
+        temp = temp->link;
+        }
+        printf("Element %d deleted from rear \n",temp->data);
+        free(temp);
+        ptr->link = NULL;
+}
+}
+void display(){
+    if(head==NULL){
+        printf("List is empty\n");
+    }
+    else
+    {
+        Node* ptr = head;
+        printf("The list is:\n");
+        while(ptr!= NULL){
+            
+            printf("%d \n",ptr->data);
+            ptr = ptr->link;
+    }
+    }
+}
+int main(){
+    int op,data;
+    while(1 && op!=4){
+    printf("Queue operations: \n");
+    printf("1. Insert \n2. Display \n3. Delete \n4. Exit \n");
+    scanf("%d",&op);
+    switch(op){
+        case 1: 
+        printf("Enter data to be inserted at front \n");
+        scanf("%d",&data);
+        insertF(data);
+        printf("Inserted %d \n",data);
+        break;
+        case 2: 
+        display();
+        break;
+        case 3: 
+        deletionR();
+        break;
+    }
+}    printf("Exited successfully");
+
+    return 0;
+}
